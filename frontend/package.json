@@ -1,0 +1,7 @@
+{
+  "name": "gateway-dashboard",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "mkdir build && echo '<h1>Dashboard Placeholder</h1>' > build/index.html"
+  }
+}

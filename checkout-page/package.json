@@ -1,0 +1,7 @@
+{
+  "name": "gateway-checkout",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "mkdir build && echo '<h1>Checkout Placeholder</h1>' > build/index.html"
+  }
+}
