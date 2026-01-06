@@ -1,0 +1,27 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+button {
+  padding: 8px 14px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+input {
+  padding: 6px;
+  margin-right: 8px;
+}
+
+[data-test-id="processing-state"] {
+  font-weight: bold;
+}
+
+[data-test-id="success-state"] {
+  color: green;
+}
+
+[data-test-id="error-state"] {
+  color: red;
+}
