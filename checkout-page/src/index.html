@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Checkout</title>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <link rel="stylesheet" href="styles.css" />
+
+  <div data-test-id="checkout-container">
+
+    <div data-test-id="order-summary">
+      <h2>Complete Payment</h2>
+      <div>
+        Amount: <span data-test-id="order-amount"></span>
+      </div>
+      <div>
+        Order ID: <span data-test-id="order-id"></span>
+      </div>
+    </div>
+
+    <div data-test-id="payment-methods">
+      <button data-test-id="method-upi">UPI</button>
+      <button data-test-id="method-card">Card</button>
+    </div>
+
+    <form data-test-id="upi-form" style="display:none">
+      <input data-test-id="vpa-input" placeholder="user@bank" />
+      <button data-test-id="pay-button">Pay</button>
+    </form>
+
+    <form data-test-id="card-form" style="display:none">
+      <input data-test-id="card-number-input" placeholder="Card Number" />
+      <input data-test-id="expiry-input" placeholder="MM/YY" />
+      <input data-test-id="cvv-input" placeholder="CVV" />
+      <input data-test-id="cardholder-name-input" placeholder="Name" />
+      <button data-test-id="pay-button">Pay</button>
+    </form>
+
+    <div data-test-id="processing-state" style="display:none">
+      Processing payment...
+    </div>
+
+    <div data-test-id="success-state" style="display:none">
+      <h2>Payment Successful</h2>
+      Payment ID: <span data-test-id="payment-id"></span>
+    </div>
+
+    <div data-test-id="error-state" style="display:none">
+      <h2>Payment Failed</h2>
+      <span data-test-id="error-message"></span>
+      <button data-test-id="retry-button">Retry</button>
+    </div>
+
+  </div>
+</body>
+</html>
