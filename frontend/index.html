@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+</head>
+<body>
+
+<h2>Merchant Login</h2>
+
+<input data-test-id="login-email" placeholder="Email" /><br><br>
+<input data-test-id="login-password" placeholder="Password" type="password" /><br><br>
+<button data-test-id="login-button">Login</button>
+
+<p data-test-id="login-error" style="color:red; display:none;">
+  Invalid credentials
+</p>
+
+<script src="app.js"></script>
+<script>
+  window.APP.initLogin();
+</script>
+
+</body>
+</html>

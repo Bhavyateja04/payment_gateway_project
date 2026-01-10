@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Merchant Dashboard</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <h1 data-test-id="dashboard-title">Merchant Dashboard</h1>
+
+  <p><strong>Name:</strong> <span data-test-id="merchant-name"></span></p>
+  <p><strong>Email:</strong> <span data-test-id="merchant-email"></span></p>
+
+  <h2>API Credentials</h2>
+  <p><strong>API Key:</strong> <span data-test-id="api-key"></span></p>
+  <p><strong>API Secret:</strong> <span data-test-id="api-secret"></span></p>
+
+  <button data-test-id="view-transactions">View Transactions</button>
+  <button data-test-id="logout-button">Logout</button>
+
+  <script>
+    const email = localStorage.getItem("merchant_email");
+    if (!email) {
+      window.location.href = "login.html";
+    }
+
+    document.querySelector('[data-test-id="merchant-name"]').innerText = "Test Merchant";
+    document.querySelector('[data-test-id="merchant-email"]').innerText = email;
+    document.querySelector('[data-test-id="api-key"]').innerText = "key_test_abc123";
+    document.querySelector('[data-test-id="api-secret"]').innerText = "secret_test_xyz789";
+
+    document.querySelector('[data-test-id="view-transactions"]').onclick = () => {
+      window.location.href = "transactions.html";
+    };
+
+    document.querySelector('[data-test-id="logout-button"]').onclick = () => {
+      localStorage.removeItem("merchant_email");
+      window.location.href = "login.html";
+    };
+  </script>
+</body>
+</html>

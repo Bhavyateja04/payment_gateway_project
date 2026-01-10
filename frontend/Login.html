@@ -1,0 +1,62 @@
+<script>
+  console.log("Login script loaded");
+
+  const TEST_EMAIL = "test@example.com";
+  const TEST_PASSWORD = "test123";
+
+  document.getElementById("loginForm").onsubmit = async (e) => {
+    e.preventDefault();
+    
+    console.log("Login submit triggered");
+
+    const email = document.querySelector('[data-test-id="login-email"]').value;
+    const password = document.querySelector('[data-test-id="login-password"]').value;
+
+    console.log("Entered:", email, password);
+
+    if (email !== TEST_EMAIL || password !== TEST_PASSWORD) {
+      alert("Invalid credentials");
+      return;
+    }
+
+    console.log("Credentials matched, creating order...");
+
+    localStorage.setItem("merchant_email", email);
+
+    try {
+      const res = await fetch("http://localhost:8000/api/v1/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Api-Key": "key_test_abc123",
+          "X-Api-Secret": "secret_test_xyz789"
+        },
+        body: JSON.stringify({
+          amount: 50000,
+          receipt: "auto_login_order"
+        })
+      });
+
+      if (!res.ok) {
+        throw new Error("Order API returned: " + res.status);
+      }
+
+      const order = await res.json();
+      console.log("Order created:", order);
+
+      if (!order.id) {
+        alert("Order creation failed");
+        return;
+      }
+
+      const checkoutUrl = `http://localhost:3001/checkout?order_id=${order.id}`;
+      console.log("Redirecting to:", checkoutUrl);
+
+      window.location.href = checkoutUrl;
+
+    } catch (err) {
+      console.error("Order creation error:", err);
+      alert("Order creation failed, check backend");
+    }
+  };
+</script>

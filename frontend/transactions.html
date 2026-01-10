@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Transactions</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script>
+    if (!localStorage.getItem("merchant_email")) {
+      window.location.href = "login.html";
+    }
+  </script>
+</head>
+<body>
+  <h1 data-test-id="transactions-title">Transactions</h1>
+
+  <button onclick="window.location.href='dashboard.html'">Back</button>
+  <button onclick="logout()">Logout</button>
+
+  <table border="1" width="100%">
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Payment ID</th>
+        <th>Amount</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody data-test-id="transactions-table"></tbody>
+  </table>
+
+  <script>
+    function logout() {
+      localStorage.removeItem("merchant_email");
+      window.location.href = "login.html";
+    }
+
+    async function loadTransactions() {
+      try {
+        const res = await fetch("http://localhost:8000/api/v1/payments", {
+          headers: {
+            "X-Api-Key": "key_test_abc123",
+            "X-Api-Secret": "secret_test_xyz789"
+          }
+        });
+
+        const data = await res.json();
+        const table = document.querySelector('[data-test-id="transactions-table"]');
+
+        if (!Array.isArray(data) || data.length === 0) {
+          table.innerHTML = `<tr><td colspan="4">No transactions found</td></tr>`;
+          return;
+        }
+
+        table.innerHTML = data.map(tx => `
+          <tr>
+            <td>${tx.order_id}</td>
+            <td>${tx.id}</td>
+            <td>${tx.amount / 100} INR</td>
+            <td>${tx.status}</td>
+          </tr>
+        `).join("");
+
+      } catch (err) {
+        alert("Failed to load transactions");
+      }
+    }
+
+    loadTransactions();
+  </script>
+</body>
+</html>

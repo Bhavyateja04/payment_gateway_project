@@ -580,4 +580,20 @@ app.post("/api/v1/payments/public", async (req, res) => {
   });
 });
 
+/* =========================
+   LIST PAYMENTS (Dashboard)
+========================= */
+app.get("/api/v1/payments", authenticate, async (req, res) => {
+  const { rows } = await pool.query(
+    `SELECT id, order_id, amount, currency, method, status, created_at
+     FROM paymentsa
+     WHERE merchant_id=$1
+     ORDER BY created_at DESC`,
+    [req.merchant.id]
+  );
+
+  res.json(rows);
+});
+
+
 startServer();
